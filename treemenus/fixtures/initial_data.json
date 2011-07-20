@@ -1,0 +1,58 @@
+[
+   {
+      "pk": 1, 
+      "model": "treemenus.menuitem", 
+      "fields": {
+         "parent": null, 
+         "caption_uk": "root", 
+         "url": "", 
+         "menu": 2, 
+         "level": 0, 
+         "rank": 0, 
+         "caption_ru": "root", 
+         "caption_en": "root", 
+         "caption_de": "root", 
+         "named_url": ""
+      }
+   }, 
+   {
+      "pk": 2, 
+      "model": "treemenus.menuitem", 
+      "fields": {
+         "parent": 1, 
+         "caption_uk": "\u0421\u0442\u0456\u043b\u044c\u0446\u0456", 
+         "url": "catalogue/stulya/", 
+         "menu": 2, 
+         "level": 1, 
+         "rank": 0, 
+         "caption_ru": "\u0421\u0442\u0443\u043b\u044c\u044f", 
+         "caption_en": "Chairs", 
+         "caption_de": "St\u00fchle", 
+         "named_url": ""
+      }
+   }, 
+   {
+      "pk": 3, 
+      "model": "treemenus.menuitem", 
+      "fields": {
+         "parent": 1, 
+         "caption_uk": "\u0414\u0438\u0432\u0430\u043d\u0438", 
+         "url": "catalogue/divany", 
+         "menu": 2, 
+         "level": 1, 
+         "rank": 1, 
+         "caption_ru": "\u0414\u0438\u0432\u0430\u043d\u044b", 
+         "caption_en": "Sofas", 
+         "caption_de": "Sofas", 
+         "named_url": ""
+      }
+   }, 
+   {
+      "pk": 2, 
+      "model": "treemenus.menu", 
+      "fields": {
+         "root_item": 1, 
+         "name": "main"
+      }
+   }
+]

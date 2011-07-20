@@ -3,21 +3,26 @@ from itertools import chain
 from django.db import models
 from django.utils.translation import ugettext_lazy
 from django.utils.translation import ugettext as _
-
+from transmeta import TransMeta
 
 
 
 
 
 class MenuItem(models.Model):
+    __metaclass__ = TransMeta
     parent = models.ForeignKey('self', verbose_name=ugettext_lazy('parent'), null=True, blank=True)
     caption = models.CharField(ugettext_lazy('caption'), max_length=50)
-    url = models.CharField(ugettext_lazy('URL'), max_length=200, blank=True)
+    url = models.CharField(ugettext_lazy('URL'), max_length=200, blank=True, 
+        help_text=_("Without first slash!"))
     named_url = models.CharField(ugettext_lazy('named URL'), max_length=200, blank=True)
     level = models.IntegerField(ugettext_lazy('level'), default=0, editable=False)
     rank = models.IntegerField(ugettext_lazy('rank'), default=0, editable=False)
     menu = models.ForeignKey('Menu', related_name='contained_items', verbose_name=ugettext_lazy('menu'), null=True, blank=True, editable=False)
     
+    class Meta:
+        translate = ('caption',)
+
     def __unicode__(self):
         return self.caption
     
@@ -111,7 +116,10 @@ class Menu(models.Model):
     def save(self, force_insert=False, **kwargs):
         if not self.root_item:
             root_item = MenuItem()
-            root_item.caption = _('root')
+            from core.utils import get_i18n_fields
+            translated_fields = get_i18n_fields('caption')
+            for field in translated_fields:
+                root_item.__setattr__(field, _('root'))
             if not self.pk: # If creating a new object (i.e does not have a pk yet)
                 super(Menu, self).save(force_insert, **kwargs) # Save, so that it gets a pk
                 force_insert = False
